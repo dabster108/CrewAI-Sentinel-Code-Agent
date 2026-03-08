@@ -1,10 +1,13 @@
-import json
+import pickle
 
-def load_data(file_path: str) -> dict:
-    """Loads data from a file using JSON."""
-    with open(file_path, "r") as f:
-        data = json.load(f)
+def load_data(file_path):
+    with open(file_path, "rb") as f:
+        data = pickle.load(f)
+
     return data
 
-# Example usage:
-# data = load_data("example_file.json")
+
+if __name__ == "__main__":
+    file = input("Enter file path: ")
+    data = load_data(file)
+    print(data)
