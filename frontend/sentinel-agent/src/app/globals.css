@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-neon-cyan: #00f5ff;
+  --color-neon-pink: #ff00a8;
+  --color-neon-green: #39ff14;
+  --color-neon-purple: #bf00ff;
+  --color-bg-dark: #020208;
+  --color-bg-card: #06061a;
+}
+
+:root {
+  --neon-cyan: #00f5ff;
+  --neon-pink: #ff00a8;
+  --neon-green: #39ff14;
+  --neon-purple: #bf00ff;
+  --bg-dark: #020208;
+  --bg-dark-2: #060614;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-dark);
+  color: #c8d6e5;
+  font-family: var(--font-roboto), "Roboto", sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 2px;
+}
+
+/* Cyber font */
+.font-cyber {
+  font-family: var(--font-orbitron), "Orbitron", monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(4, 4, 14, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 245, 255, 0.08);
+}
+
+/* Cyber grid background */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Neon text effects */
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 10px rgba(0, 245, 255, 0.9),
+    0 0 40px rgba(0, 245, 255, 0.4);
+}
+.neon-text-pink {
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 10px rgba(255, 0, 168, 0.9),
+    0 0 40px rgba(255, 0, 168, 0.4);
+}
+.neon-text-green {
+  color: var(--neon-green);
+  text-shadow:
+    0 0 10px rgba(57, 255, 20, 0.9),
+    0 0 40px rgba(57, 255, 20, 0.4);
+}
+
+/* Pulse animation */
+@keyframes pulse-neon {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+.animate-pulse-neon {
+  animation: pulse-neon 2s ease-in-out infinite;
+}
