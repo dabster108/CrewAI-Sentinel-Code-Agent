@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-primary: #6366f1;
-  --color-primary-dark: #4f46e5;
-}
-
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --bg: #ffffff;
-  --bg-subtle: #f8fafc;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --text-muted: #64748b;
+  --bg: #04080f;
+  --bg-surface: #0a1120;
+  --bg-elevated: #0f1a2e;
+  --bg-card: #0c1526;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-bright: rgba(59, 130, 246, 0.25);
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-glow: rgba(59, 130, 246, 0.18);
+  --text: #dce9ff;
+  --text-muted: #6882a8;
+  --text-subtle: #2e426a;
+  --green: #10b981;
+  --red: #f87171;
+  --yellow: #fbbf24;
 }
 
 *,
@@ -26,8 +29,8 @@ html {
 }
 
 body {
-  background: #ffffff;
-  color: #0f172a;
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   overflow-x: hidden;
   margin: 0;
@@ -35,50 +38,72 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #04080f;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+  background: #1a2d4a;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #2a4060;
 }
 
-/* font-cyber is now just Inter semibold */
 .font-cyber {
   font-family: var(--font-inter), "Inter", system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-/* Clean glass */
+/* Dark glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(4, 8, 15, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-/* Subtle dot grid background */
+/* Dot grid for dark bg */
 .cyber-grid {
-  background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.08) 1px,
+    transparent 1px
+  );
   background-size: 28px 28px;
 }
 
-/* Status pulse */
+/* Glow pulse */
 @keyframes pulse-neon {
   0%,
   100% {
     opacity: 1;
+    box-shadow: 0 0 6px currentColor;
   }
   50% {
     opacity: 0.5;
+    box-shadow: 0 0 2px currentColor;
   }
 }
 .animate-pulse-neon {
-  animation: pulse-neon 2s ease-in-out infinite;
+  animation: pulse-neon 2.2s ease-in-out infinite;
+}
+
+/* Shimmer gradient for skeleton/loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Blue glow card hover  */
+.card-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.2),
+    0 8px 32px rgba(59, 130, 246, 0.08);
 }

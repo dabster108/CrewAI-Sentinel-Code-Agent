@@ -19,7 +19,7 @@ export default function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 glass"
-      style={{ borderBottom: "1px solid #e2e8f0" }}
+      style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -31,11 +31,17 @@ export default function Header() {
             >
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ background: "#6366f1" }}
+                style={{
+                  background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                  boxShadow: "0 0 14px rgba(37,99,235,0.45)",
+                }}
               >
                 <span className="text-white text-sm font-bold">S</span>
               </div>
-              <span className="font-semibold text-base text-slate-900">
+              <span
+                className="font-semibold text-base"
+                style={{ color: "#dce9ff" }}
+              >
                 Sentinel
               </span>
             </motion.div>
@@ -52,7 +58,14 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-150 font-medium"
+                  className="text-sm font-medium transition-colors duration-150"
+                  style={{ color: "#6882a8" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#dce9ff")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#6882a8")
+                  }
                 >
                   {item.label}
                 </Link>
@@ -66,11 +79,14 @@ export default function Header() {
               <motion.button
                 whileHover={{
                   scale: 1.02,
-                  boxShadow: "0 4px 14px rgba(99,102,241,0.35)",
+                  boxShadow: "0 4px 18px rgba(37,99,235,0.45)",
                 }}
                 whileTap={{ scale: 0.97 }}
                 className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-all duration-150"
-                style={{ background: "#6366f1" }}
+                style={{
+                  background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                  boxShadow: "0 0 0 1px rgba(59,130,246,0.3)",
+                }}
               >
                 Launch App
               </motion.button>
@@ -80,19 +96,29 @@ export default function Header() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 flex flex-col justify-center gap-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+            className="md:hidden p-2 flex flex-col justify-center gap-1.5 rounded-lg transition-colors"
+            style={{ background: "transparent" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background = "transparent")
+            }
           >
             <motion.span
               animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="block h-0.5 w-5 rounded bg-slate-600"
+              className="block h-0.5 w-5 rounded"
+              style={{ background: "#6882a8" }}
             />
             <motion.span
               animate={isOpen ? { opacity: 0, x: -4 } : { opacity: 1, x: 0 }}
-              className="block h-0.5 w-4 rounded bg-slate-600"
+              className="block h-0.5 w-4 rounded"
+              style={{ background: "#6882a8" }}
             />
             <motion.span
               animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="block h-0.5 w-5 rounded bg-slate-600"
+              className="block h-0.5 w-5 rounded"
+              style={{ background: "#6882a8" }}
             />
           </button>
         </div>
@@ -106,8 +132,11 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden bg-white"
-            style={{ borderTop: "1px solid #e2e8f0" }}
+            className="md:hidden overflow-hidden"
+            style={{
+              background: "rgba(4,8,15,0.95)",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+            }}
           >
             <div className="px-4 py-4 space-y-1">
               {navItems.map((item) => (
@@ -115,7 +144,8 @@ export default function Header() {
                   key={item.label}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="block text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 px-3 py-2 rounded-lg font-medium transition-colors"
+                  className="block text-sm px-3 py-2 rounded-lg font-medium transition-colors"
+                  style={{ color: "#6882a8" }}
                 >
                   {item.label}
                 </Link>
@@ -127,7 +157,10 @@ export default function Header() {
               >
                 <div
                   className="text-sm font-semibold text-center py-2.5 rounded-lg text-white"
-                  style={{ background: "#6366f1" }}
+                  style={{
+                    background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                    boxShadow: "0 0 14px rgba(37,99,235,0.35)",
+                  }}
                 >
                   Launch App
                 </div>

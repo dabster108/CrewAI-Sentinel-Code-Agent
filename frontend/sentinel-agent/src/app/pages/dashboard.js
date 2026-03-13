@@ -101,25 +101,25 @@ const agentLogs = [
 function StatusBadge({ status }) {
   const styles = {
     CLEAN: {
-      color: "#16a34a",
-      border: "#bbf7d0",
-      bg: "#f0fdf4",
+      color: "#34d399",
+      border: "rgba(16,185,129,0.25)",
+      bg: "rgba(16,185,129,0.08)",
     },
     CRITICAL: {
-      color: "#dc2626",
-      border: "#fecaca",
-      bg: "#fef2f2",
+      color: "#f87171",
+      border: "rgba(248,113,113,0.25)",
+      bg: "rgba(248,113,113,0.08)",
     },
     FLAGGED: {
-      color: "#d97706",
-      border: "#fde68a",
-      bg: "#fffbeb",
+      color: "#fbbf24",
+      border: "rgba(251,191,36,0.25)",
+      bg: "rgba(251,191,36,0.08)",
     },
   };
   const s = styles[status] || styles.FLAGGED;
   return (
     <span
-      className="text-xs font-semibold px-2.5 py-1 rounded-full"
+      className="text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider"
       style={{
         color: s.color,
         border: `1px solid ${s.border}`,
@@ -156,20 +156,23 @@ function BarChart({ data }) {
                   delay: i * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="w-full rounded-t-sm cursor-pointer relative overflow-hidden"
+                className="w-full rounded-t-sm cursor-pointer relative overflow-hidden group"
                 style={{
                   background:
-                    "linear-gradient(to top, #6366f1 0%, rgba(99,102,241,0.35) 100%)",
+                    "linear-gradient(to top, #2563eb 0%, rgba(59,130,246,0.3) 100%)",
+                  boxShadow: "0 0 12px rgba(37,99,235,0.25)",
                 }}
               >
                 {/* Hover tooltip */}
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-indigo-600 text-xs font-semibold">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-blue-400 text-xs font-semibold">
                   {d.scans}
                 </div>
               </motion.div>
             </div>
           </div>
-          <span className="text-slate-400 text-xs">{d.day}</span>
+          <span className="text-xs" style={{ color: "#3d5278" }}>
+            {d.day}
+          </span>
         </div>
       ))}
     </div>
@@ -188,7 +191,7 @@ function DonutChart({ value = 87 }) {
           cy="48"
           r={r}
           fill="none"
-          stroke="#e2e8f0"
+          stroke="rgba(255,255,255,0.07)"
           strokeWidth="7"
         />
         <motion.circle
@@ -196,7 +199,7 @@ function DonutChart({ value = 87 }) {
           cy="48"
           r={r}
           fill="none"
-          stroke="#6366f1"
+          stroke="url(#blueGrad)"
           strokeWidth="7"
           strokeDasharray={circ}
           initial={{ strokeDashoffset: circ }}
@@ -204,18 +207,27 @@ function DonutChart({ value = 87 }) {
           transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
           strokeLinecap="round"
         />
+        <defs>
+          <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#60a5fa" />
+            <stop offset="100%" stopColor="#2563eb" />
+          </linearGradient>
+        </defs>
       </svg>
       <div className="absolute text-center">
         <div
           className="font-cyber text-xl font-bold"
           style={{
-            color: "#00f5ff",
-            textShadow: "0 0 12px rgba(0,245,255,0.8)",
+            color: "#60a5fa",
+            textShadow: "0 0 16px rgba(96,165,250,0.7)",
           }}
         >
           {value}%
         </div>
-        <div className="font-cyber text-[8px] text-gray-600 tracking-wide">
+        <div
+          className="text-[8px] tracking-widest"
+          style={{ color: "#3d5278" }}
+        >
           SECURE
         </div>
       </div>
@@ -225,9 +237,9 @@ function DonutChart({ value = 87 }) {
 
 /* ─── Card wrapper shared style ───────────────────────────── */
 const cardStyle = {
-  background: "white",
-  border: "1px solid #e2e8f0",
-  boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+  background: "#0c1526",
+  border: "1px solid rgba(255,255,255,0.07)",
+  boxShadow: "0 2px 12px rgba(0,0,0,0.35)",
 };
 
 /* ─── Main Dashboard Page ─────────────────────────────────── */
@@ -235,7 +247,7 @@ export default function DashboardPage() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div style={{ background: "#04080f", minHeight: "100vh" }}>
       <Header />
 
       <div className="flex">
@@ -253,21 +265,35 @@ export default function DashboardPage() {
             {/* ── Page header ── */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
               <div>
-                <h1 className="font-bold text-xl sm:text-2xl text-slate-900">
-                  Security <span style={{ color: "#6366f1" }}>Dashboard</span>
+                <h1
+                  className="font-bold text-xl sm:text-2xl"
+                  style={{ color: "#dce9ff" }}
+                >
+                  Security{" "}
+                  <span
+                    style={{
+                      color: "#60a5fa",
+                      textShadow: "0 0 20px rgba(96,165,250,0.4)",
+                    }}
+                  >
+                    Dashboard
+                  </span>
                 </h1>
-                <p className="text-sm text-slate-400 mt-1">
+                <p className="text-sm mt-1" style={{ color: "#3d5278" }}>
                   Last scan: 2 minutes ago &nbsp;·&nbsp; Session active
                 </p>
               </div>
               <motion.button
                 whileHover={{
                   scale: 1.03,
-                  boxShadow: "0 6px 20px rgba(99,102,241,0.35)",
+                  boxShadow: "0 6px 24px rgba(37,99,235,0.5)",
                 }}
                 whileTap={{ scale: 0.97 }}
                 className="font-semibold text-sm px-6 py-2.5 rounded-lg text-white self-start sm:self-auto"
-                style={{ background: "#6366f1" }}
+                style={{
+                  background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                  boxShadow: "0 0 0 1px rgba(59,130,246,0.3)",
+                }}
               >
                 + New Scan
               </motion.button>
@@ -321,10 +347,16 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center justify-between mb-5">
                   <div>
-                    <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <div
+                      className="text-xs font-semibold uppercase tracking-wider"
+                      style={{ color: "#3d5278" }}
+                    >
                       Scan Activity
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">
+                    <div
+                      className="text-xs mt-0.5"
+                      style={{ color: "#2e426a" }}
+                    >
                       7-day overview
                     </div>
                   </div>
@@ -333,10 +365,12 @@ export default function DashboardPage() {
                       className="w-3 h-2 rounded-sm"
                       style={{
                         background:
-                          "linear-gradient(to top, #6366f1, rgba(99,102,241,0.35))",
+                          "linear-gradient(to top, #2563eb, rgba(59,130,246,0.3))",
                       }}
                     />
-                    <span className="text-xs text-slate-400">Scans</span>
+                    <span className="text-xs" style={{ color: "#3d5278" }}>
+                      Scans
+                    </span>
                   </div>
                 </div>
                 <BarChart data={weeklyData} />
@@ -350,16 +384,19 @@ export default function DashboardPage() {
                 className="rounded-xl p-6 flex flex-col"
                 style={cardStyle}
               >
-                <div className="font-semibold text-sm text-slate-700 mb-4">
+                <div
+                  className="text-sm font-semibold mb-4"
+                  style={{ color: "#93c5fd" }}
+                >
                   Security Score
                 </div>
                 <div className="flex flex-col items-center flex-1 justify-center">
                   <DonutChart value={87} />
                   <div className="mt-5 w-full space-y-2">
                     {[
-                      { label: "Critical", count: 6, color: "#ef4444" },
-                      { label: "Medium", count: 18, color: "#f59e0b" },
-                      { label: "Low", count: 14, color: "#3b82f6" },
+                      { label: "Critical", count: 6, color: "#f87171" },
+                      { label: "Medium", count: 18, color: "#fbbf24" },
+                      { label: "Low", count: 14, color: "#60a5fa" },
                     ].map((s) => (
                       <div
                         key={s.label}
@@ -368,9 +405,15 @@ export default function DashboardPage() {
                         <div className="flex items-center gap-2">
                           <div
                             className="w-1.5 h-1.5 rounded-full"
-                            style={{ background: s.color }}
+                            style={{
+                              background: s.color,
+                              boxShadow: `0 0 4px ${s.color}`,
+                            }}
                           />
-                          <span className="text-slate-600 text-xs">
+                          <span
+                            className="text-xs"
+                            style={{ color: "#6882a8" }}
+                          >
                             {s.label}
                           </span>
                         </div>
@@ -397,7 +440,10 @@ export default function DashboardPage() {
                 className="rounded-xl p-6"
                 style={cardStyle}
               >
-                <div className="font-semibold text-sm text-slate-700 mb-5">
+                <div
+                  className="font-semibold text-sm mb-5"
+                  style={{ color: "#93c5fd" }}
+                >
                   Vuln Breakdown
                 </div>
                 <div className="space-y-4">
@@ -409,7 +455,9 @@ export default function DashboardPage() {
                       transition={{ delay: 0.7 + i * 0.08 }}
                     >
                       <div className="flex justify-between mb-1.5">
-                        <span className="text-slate-600 text-xs">{v.name}</span>
+                        <span className="text-xs" style={{ color: "#6882a8" }}>
+                          {v.name}
+                        </span>
                         <span
                           className="text-xs font-semibold"
                           style={{ color: v.color }}
@@ -417,7 +465,10 @@ export default function DashboardPage() {
                           {v.count}
                         </span>
                       </div>
-                      <div className="h-1.5 rounded-full bg-slate-100">
+                      <div
+                        className="h-1.5 rounded-full"
+                        style={{ background: "rgba(255,255,255,0.05)" }}
+                      >
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${(v.count / v.max) * 100}%` }}
@@ -427,7 +478,10 @@ export default function DashboardPage() {
                             ease: [0.22, 1, 0.36, 1],
                           }}
                           className="h-full rounded-full"
-                          style={{ background: v.color }}
+                          style={{
+                            background: v.color,
+                            boxShadow: `0 0 8px ${v.color}66`,
+                          }}
                         />
                       </div>
                     </motion.div>
@@ -445,14 +499,18 @@ export default function DashboardPage() {
               >
                 <div
                   className="px-6 py-4 flex items-center justify-between"
-                  style={{ borderBottom: "1px solid #f1f5f9" }}
+                  style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
                 >
-                  <div className="font-semibold text-sm text-slate-700">
+                  <div
+                    className="font-semibold text-sm"
+                    style={{ color: "#93c5fd" }}
+                  >
                     Recent Scans
                   </div>
                   <motion.span
-                    whileHover={{ color: "#6366f1", x: 2 }}
-                    className="text-xs text-slate-400 cursor-pointer transition-all"
+                    whileHover={{ color: "#60a5fa", x: 2 }}
+                    className="text-xs cursor-pointer transition-all"
+                    style={{ color: "#2e426a" }}
                   >
                     View all →
                   </motion.span>
@@ -464,7 +522,10 @@ export default function DashboardPage() {
                       initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.75 + i * 0.07 }}
-                      whileHover={{ backgroundColor: "#f8fafc", x: 2 }}
+                      whileHover={{
+                        backgroundColor: "rgba(59,130,246,0.05)",
+                        x: 2,
+                      }}
                       onClick={() =>
                         setSelectedFile(
                           selectedFile === scan.file ? null : scan.file,
@@ -474,11 +535,11 @@ export default function DashboardPage() {
                       style={{
                         borderBottom:
                           i < recentScans.length - 1
-                            ? "1px solid #f1f5f9"
+                            ? "1px solid rgba(255,255,255,0.04)"
                             : "none",
                         background:
                           selectedFile === scan.file
-                            ? "#eef2ff"
+                            ? "rgba(59,130,246,0.08)"
                             : "transparent",
                       }}
                     >
@@ -488,19 +549,29 @@ export default function DashboardPage() {
                         style={{
                           background:
                             scan.status === "CLEAN"
-                              ? "#f0fdf4"
+                              ? "rgba(16,185,129,0.1)"
                               : scan.status === "CRITICAL"
-                                ? "#fef2f2"
-                                : "#fffbeb",
+                                ? "rgba(248,113,113,0.1)"
+                                : "rgba(251,191,36,0.1)",
                           border:
                             scan.status === "CLEAN"
-                              ? "1px solid #bbf7d0"
+                              ? "1px solid rgba(16,185,129,0.25)"
                               : scan.status === "CRITICAL"
-                                ? "1px solid #fecaca"
-                                : "1px solid #fde68a",
+                                ? "1px solid rgba(248,113,113,0.25)"
+                                : "1px solid rgba(251,191,36,0.25)",
                         }}
                       >
-                        <span className="text-xs">
+                        <span
+                          className="text-xs font-bold"
+                          style={{
+                            color:
+                              scan.status === "CLEAN"
+                                ? "#34d399"
+                                : scan.status === "CRITICAL"
+                                  ? "#f87171"
+                                  : "#fbbf24",
+                          }}
+                        >
                           {scan.status === "CLEAN"
                             ? "✓"
                             : scan.status === "CRITICAL"
@@ -511,10 +582,16 @@ export default function DashboardPage() {
 
                       {/* File name + time */}
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-slate-800 truncate">
+                        <div
+                          className="text-sm font-medium truncate"
+                          style={{ color: "#c7d8f0" }}
+                        >
                           {scan.file}
                         </div>
-                        <div className="text-slate-400 text-xs mt-0.5">
+                        <div
+                          className="text-xs mt-0.5"
+                          style={{ color: "#2e426a" }}
+                        >
                           {scan.time}
                         </div>
                       </div>
@@ -527,7 +604,7 @@ export default function DashboardPage() {
                         <span
                           className="text-xs font-medium"
                           style={{
-                            color: scan.issues === 0 ? "#16a34a" : "#94a3b8",
+                            color: scan.issues === 0 ? "#34d399" : "#3d5278",
                           }}
                         >
                           {scan.issues} {scan.issues === 1 ? "issue" : "issues"}
@@ -549,9 +626,12 @@ export default function DashboardPage() {
             >
               <div
                 className="px-6 py-4"
-                style={{ borderBottom: "1px solid #f1f5f9" }}
+                style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
               >
-                <div className="font-semibold text-sm text-slate-700">
+                <div
+                  className="font-semibold text-sm"
+                  style={{ color: "#93c5fd" }}
+                >
                   Agent Activity Log
                 </div>
               </div>
@@ -562,18 +642,30 @@ export default function DashboardPage() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.85 + i * 0.1 }}
-                    className="flex items-start gap-3 p-3 rounded-lg bg-slate-50"
+                    className="flex items-start gap-3 p-3 rounded-lg"
+                    style={{
+                      background: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.04)",
+                    }}
                   >
-                    <span className="text-slate-300 text-xs flex-shrink-0 mt-0.5">
+                    <span
+                      className="text-xs flex-shrink-0 mt-0.5"
+                      style={{ color: "#2e426a" }}
+                    >
                       {log.time}
                     </span>
                     <span
                       className="text-xs font-semibold flex-shrink-0 mt-0.5"
-                      style={{ color: log.color }}
+                      style={{
+                        color: log.color,
+                        textShadow: `0 0 8px ${log.color}66`,
+                      }}
                     >
                       [{log.agent}]
                     </span>
-                    <span className="text-slate-600 text-xs">{log.msg}</span>
+                    <span className="text-xs" style={{ color: "#6882a8" }}>
+                      {log.msg}
+                    </span>
                   </motion.div>
                 ))}
               </div>
