@@ -3,50 +3,37 @@ import { motion } from "framer-motion";
 
 const colorMap = {
   cyan: {
-    text: "#3b82f6",
-    border: "#dbeafe",
-    bg: "#eff6ff",
-    badge: { color: "#1d4ed8", bg: "#dbeafe" },
+    text: "#60a5fa",
+    glow: "rgba(59,130,246,0.15)",
+    border: "rgba(59,130,246,0.2)",
+    badge: { color: "#93c5fd", bg: "rgba(59,130,246,0.12)" },
   },
   pink: {
-    text: "#ec4899",
-    border: "#fce7f3",
-    bg: "#fdf2f8",
-    badge: { color: "#be185d", bg: "#fce7f3" },
+    text: "#f472b6",
+    glow: "rgba(236,72,153,0.12)",
+    border: "rgba(236,72,153,0.2)",
+    badge: { color: "#f9a8d4", bg: "rgba(236,72,153,0.12)" },
   },
   green: {
-    text: "#10b981",
-    border: "#d1fae5",
-    bg: "#f0fdf4",
-    badge: { color: "#065f46", bg: "#d1fae5" },
+    text: "#34d399",
+    glow: "rgba(16,185,129,0.12)",
+    border: "rgba(16,185,129,0.2)",
+    badge: { color: "#6ee7b7", bg: "rgba(16,185,129,0.12)" },
   },
   purple: {
-    text: "#8b5cf6",
-    border: "#ede9fe",
-    bg: "#f5f3ff",
-    badge: { color: "#5b21b6", bg: "#ede9fe" },
+    text: "#a78bfa",
+    glow: "rgba(139,92,246,0.12)",
+    border: "rgba(139,92,246,0.2)",
+    badge: { color: "#c4b5fd", bg: "rgba(139,92,246,0.12)" },
   },
   orange: {
-    text: "#f97316",
-    border: "#fed7aa",
-    bg: "#fff7ed",
-    badge: { color: "#c2410c", bg: "#fed7aa" },
+    text: "#fb923c",
+    glow: "rgba(249,115,22,0.12)",
+    border: "rgba(249,115,22,0.2)",
+    badge: { color: "#fdba74", bg: "rgba(249,115,22,0.12)" },
   },
 };
 
-/**
- * AnimatedCard — reusable animated stat/feature card
- *
- * Props:
- *   title       - Card label (string)
- *   value       - Big number/text to display (string)
- *   icon        - Emoji or icon character (string)
- *   color       - "cyan" | "pink" | "green" | "purple" | "orange"
- *   description - Body text (string)
- *   tag         - Small badge text (string)
- *   index       - Stagger delay multiplier (number, default 0)
- *   children    - Optional extra content
- */
 export default function AnimatedCard({
   title,
   value,
@@ -61,45 +48,69 @@ export default function AnimatedCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{
         duration: 0.5,
-        delay: index * 0.1,
+        delay: index * 0.09,
         ease: [0.22, 1, 0.36, 1],
       }}
       whileHover={{
-        y: -3,
-        boxShadow: "0 12px 32px rgba(0,0,0,0.08)",
+        y: -4,
+        boxShadow: `0 0 0 1px ${c.border}, 0 16px 40px ${c.glow}, 0 4px 16px rgba(0,0,0,0.3)`,
       }}
-      className="relative rounded-xl p-6 bg-white cursor-pointer"
+      className="relative rounded-xl p-5 cursor-pointer overflow-hidden"
       style={{
-        border: "1px solid #e2e8f0",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+        background: "#0c1526",
+        border: "1px solid rgba(255,255,255,0.07)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
         transition: "box-shadow 0.25s ease, transform 0.25s ease",
       }}
     >
+      {/* Subtle top glow accent */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${c.text}40, transparent)`,
+        }}
+      />
+
       <div className="flex items-start justify-between mb-3">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+        <span
+          className="text-[10px] font-semibold uppercase tracking-widest"
+          style={{ color: "#3d5278" }}
+        >
           {title}
         </span>
-        {icon && <span className="text-xl leading-none">{icon}</span>}
+        {icon && (
+          <span
+            className="text-lg leading-none p-1.5 rounded-lg"
+            style={{ background: c.glow }}
+          >
+            {icon}
+          </span>
+        )}
       </div>
 
       {value && (
-        <div className="font-bold text-3xl text-slate-900 mb-1">{value}</div>
+        <div className="font-bold text-3xl mb-1" style={{ color: c.text }}>
+          {value}
+        </div>
       )}
 
       {description && (
-        <p className="text-slate-500 text-sm mt-2 leading-relaxed">
+        <p
+          className="text-sm mt-2 leading-relaxed"
+          style={{ color: "#6882a8" }}
+        >
           {description}
         </p>
       )}
 
       {tag && (
         <div
-          className="mt-3 inline-block text-xs font-semibold px-2.5 py-1 rounded-full"
+          className="mt-3 inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full"
           style={{ color: c.badge.color, background: c.badge.bg }}
         >
           {tag}
