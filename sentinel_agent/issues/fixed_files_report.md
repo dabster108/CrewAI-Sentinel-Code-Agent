@@ -1,4 +1,5 @@
 #### test1.py
+
 ```python
 import os
 import sqlite3
@@ -37,6 +38,7 @@ if __name__ == "__main__":
 ```
 
 #### test2.py
+
 ```python
 import os
 
@@ -46,7 +48,7 @@ def read_file(filename: str) -> str:
     path = os.path.join(base_dir, os.path.basename(filename))
     if not path.startswith(base_dir):
         raise ValueError("Invalid file path")
-    
+
     try:
         with open(path, "r") as f:
             data = f.read()
@@ -62,6 +64,7 @@ if __name__ == "__main__":
 ```
 
 #### test4.py
+
 ```python
 import subprocess
 
@@ -85,6 +88,7 @@ if __name__ == "__main__":
 ```
 
 #### test5.py
+
 ```python
 import json
 
@@ -106,9 +110,9 @@ if __name__ == "__main__":
 
 In the fixed code, the following security vulnerabilities and code quality issues were addressed:
 
-*   **SQL injection**: In `test1.py`, parameterized queries were used to prevent SQL injection attacks.
-*   **Hardcoded credentials**: In `test1.py`, sensitive credentials are stored securely using environment variables.
-*   **Path traversal**: In `test2.py`, the `filename` parameter is validated and sanitized to prevent path traversal attacks.
-*   **Command injection**: In `test4.py`, the `subprocess` module is used with a list of arguments to prevent command injection attacks.
-*   **Unsafe deserialization**: In `test5.py`, a safer deserialization method (JSON) is used to prevent arbitrary code execution.
-*   **Type hinting**: Type hints were added for function parameters and return values in all files to improve code readability and maintainability.
+- **SQL injection**: In `test1.py`, parameterized queries were used to prevent SQL injection attacks.
+- **Hardcoded credentials**: In `test1.py`, sensitive credentials are stored securely using environment variables.
+- **Path traversal**: In `test2.py`, the `filename` parameter is validated and sanitized to prevent path traversal attacks.
+- **Command injection**: In `test4.py`, the `subprocess` module is used with a list of arguments to prevent command injection attacks.
+- **Unsafe deserialization**: In `test5.py`, a safer deserialization method (JSON) is used to prevent arbitrary code execution.
+- **Type hinting**: Type hints were added for function parameters and return values in all files to improve code readability and maintainability.
